@@ -61,4 +61,22 @@ public class ProjectApplication {
     return ResponseEntity.status(HttpStatus.CREATED).body(taskCreated);
   }
 
+  @GetMapping("/task")
+  public ResponseEntity<Task> getTask(@RequestParam(value = "id") int id) {
+    Task task = taskService.getTask(id);
+    if (task == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(task);
+  }
+
+  @GetMapping("/tasks")
+  public ResponseEntity<Iterable<Task>> getAllTasks(@RequestParam(value = "userId") int userId) {
+    Iterable<Task> tasks = taskService.getAllTaskByUser(userId);
+    if (tasks == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(tasks);
+  }
+
 }
