@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.todog.project.helpers.TaskInfo;
 import com.todog.project.models.Task;
 import com.todog.project.models.User;
 import com.todog.project.services.TaskService;
@@ -52,10 +53,8 @@ public class ProjectApplication {
   }
 
   @PostMapping("/task")
-  public ResponseEntity<Task> saveTask(@RequestBody String title, @RequestBody String description, @RequestBody boolean status, @RequestBody int userId) { 
-    System.out.println("Creating task...");
-    System.out.println("userID: " + userId);
-    Task taskCreated = taskService.saveTask(title, description, status, userId);
+  public ResponseEntity<Task> saveTask(@RequestBody TaskInfo taskInfo) { 
+    Task taskCreated = taskService.saveTask(taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isStatus(), taskInfo.getUserId());
     if (taskCreated == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }

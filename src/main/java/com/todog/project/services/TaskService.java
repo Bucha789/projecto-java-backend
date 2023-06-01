@@ -22,16 +22,17 @@ public class TaskService implements ITaskService {
 
   @Override
   public Task saveTask(String title, String description, boolean status, int userId) {
-    System.out.println("Saving task...");
     try {
-      User currentUser = userRepository.findById(userId).get();
-      if (currentUser != null){
+      Optional<User> user = userRepository.findById(userId);
+
+      if (user.isPresent()){
+        User currentUser = user.get();
         Task newTask = new Task(title, description, status);
-        System.out.println("hola");
         newTask.setUser(currentUser);
-        Task saveTask = taskRepository.save(newTask);
-        return saveTask;
+        Task taskCreated = taskRepository.save(newTask);
+        return taskCreated;
       }
+
       return null;
     } catch(IllegalArgumentException e) {
       System.out.println("Error saving task: " + e.getMessage());

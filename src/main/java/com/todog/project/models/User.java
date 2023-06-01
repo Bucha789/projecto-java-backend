@@ -2,6 +2,8 @@ package com.todog.project.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class User {
   private String password;
   
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @JsonManagedReference
   private List<Task> tasks;
 
   public User() {}
