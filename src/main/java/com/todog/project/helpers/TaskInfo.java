@@ -4,7 +4,7 @@ public class TaskInfo {
   private String title;
   private int id;
   private String description;
-  private boolean status;
+  private boolean completed;
   private int userId;
 
   // Constructor, getters y setters
@@ -26,12 +26,12 @@ public class TaskInfo {
     this.description = description;
   }
 
-  public boolean isStatus() {
-    return status;
+  public boolean isCompleted() {
+    return completed;
   }
 
-  public void setStatus(boolean status) {
-    this.status = status;
+  public void setCompleted(boolean status) {
+    this.completed = status;
   }
 
   public int getUserId() {
@@ -44,6 +44,6 @@ public class TaskInfo {
   public int getId() {
     return id;
   }
-  
+
 }
 

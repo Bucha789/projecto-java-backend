@@ -56,7 +56,7 @@ public class ProjectApplication {
 
   @PostMapping("/task")
   public ResponseEntity<Task> saveTask(@RequestBody TaskInfo taskInfo) { 
-    Task taskCreated = taskService.saveTask(taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isStatus(), taskInfo.getUserId());
+    Task taskCreated = taskService.saveTask(taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isCompleted(), taskInfo.getUserId());
     if (taskCreated == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
@@ -74,7 +74,7 @@ public class ProjectApplication {
 
   @PutMapping("/task")
   public ResponseEntity<Task> updateTask(@RequestBody TaskInfo taskInfo) {
-    Task taskUpdated = taskService.updateTask(taskInfo.getId(), taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isStatus());
+    Task taskUpdated = taskService.updateTask(taskInfo.getId(), taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isCompleted());
     if (taskUpdated == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
