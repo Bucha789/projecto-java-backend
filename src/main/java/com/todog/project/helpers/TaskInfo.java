@@ -2,6 +2,7 @@ package com.todog.project.helpers;
 
 public class TaskInfo {
   private String title;
+  private int id;
   private String description;
   private boolean status;
   private int userId;
@@ -40,5 +41,9 @@ public class TaskInfo {
   public void setUserId(int userId) {
     this.userId = userId;
   }
+  public int getId() {
+    return id;
+  }
+  
 }
 

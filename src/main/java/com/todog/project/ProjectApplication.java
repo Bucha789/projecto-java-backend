@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +70,21 @@ public class ProjectApplication {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     return ResponseEntity.status(HttpStatus.OK).body(task);
+  }
+
+  @PutMapping("/task")
+  public ResponseEntity<Task> updateTask(@RequestBody TaskInfo taskInfo) {
+    Task taskUpdated = taskService.updateTask(taskInfo.getId(), taskInfo.getTitle(), taskInfo.getDescription(), taskInfo.isStatus());
+    if (taskUpdated == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(taskUpdated);
+  }
+
+  @DeleteMapping("/task")
+  public ResponseEntity<?> deleteTask(@RequestParam(value = "id") int id) {
+    taskService.deleteTask(id);
+    return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
   }
 
   @GetMapping("/tasks")
