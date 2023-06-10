@@ -3,6 +3,8 @@ package com.todog.project.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,16 @@ public class TaskService implements ITaskService {
 
   @Override
   public Task getTask(int id) {
-    return taskRepository.findById(id).get();
+    Optional<Task> task = taskRepository.findById(id);
+    try {
+      if (task.isPresent()) {
+        return task.get();
+      }
+      return null;
+    } catch(IllegalArgumentException e) {
+      System.out.println("Error saving task: " + e.getMessage());
+      return null;
+    }
   }
 
   @Override
